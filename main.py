@@ -12,6 +12,8 @@ from routes.health import router as health_router
 from routes.logs import router as logs_router
 from routes.metrics import router as metrics_router
 from routes.work import router as work_router
+from routes.orders import router as orders_router
+from middleware.rate_limit import RateLimitMiddleware
 
 app = FastAPI()
 
@@ -27,11 +29,13 @@ app.add_middleware(
 )
 
 app.add_middleware(MetricsMiddleware)
+app.add_middleware(RateLimitMiddleware)
 
 app.include_router(stats_router)
 app.include_router(verify_router)
 app.include_router(config_router)
 app.include_router(analytics_router)
+app.include_router(orders_router)
 
 
 obs_app = FastAPI()
