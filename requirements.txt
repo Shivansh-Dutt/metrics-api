@@ -4,3 +4,4 @@ pyjwt
 cryptography
 python-dotenv
 pyyaml
+prometheus-client
