@@ -11,8 +11,7 @@ WINDOW = 10  # seconds
 CLIENT_REQUESTS = defaultdict(deque)
 
 
-class RateLimitMiddleware(BaseHT
-                          TPMiddleware):
+class RateLimitMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request, call_next):
 
