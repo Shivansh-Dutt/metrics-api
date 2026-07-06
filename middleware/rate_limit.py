@@ -12,9 +12,11 @@ CLIENT_REQUESTS = defaultdict(deque)
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-
     async def dispatch(self, request, call_next):
 
+        # Only rate limit the orders endpoint
+        # if request.url.path != "/orders":
+        #     return await call_next(request)
         client_id = request.headers.get("X-Client-Id")
 
         # No client id → skip limiting
@@ -29,19 +31,20 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         while timestamps and now - timestamps[0] >= WINDOW:
             timestamps.popleft()
 
+        print(
+            request.method,
+            request.url.path,
+            request.headers.get("X-Client-Id"),
+            len(timestamps),
+        )
         # Limit exceeded
         if len(timestamps) >= RATE_LIMIT:
-
             retry_after = WINDOW - (now - timestamps[0])
 
             return JSONResponse(
                 status_code=429,
-                headers={
-                    "Retry-After": str(int(retry_after) + 1)
-                },
-                content={
-                    "detail": "Rate limit exceeded"
-                }
+                headers={"Retry-After": str(int(retry_after) + 1)},
+                content={"detail": "Rate limit exceeded"},
             )
 
         timestamps.append(now)
