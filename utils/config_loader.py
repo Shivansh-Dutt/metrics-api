@@ -14,7 +14,7 @@ DEFAULTS = {
 
 def load_yaml():
 
-    with open("metrics-api\config.development.yaml") as f:
+    with open("config.development.yaml") as f:
 
         return yaml.safe_load(f)
 
