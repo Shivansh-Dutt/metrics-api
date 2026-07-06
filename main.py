@@ -33,7 +33,7 @@ app.add_middleware(
 app.add_middleware(MetricsMiddleware)
 
 
-EMAIL = "your_logged_in_email@example.com"
+EMAIL = "24f2002771@ds.study.iitm.ac.in"
 
 
 @app.get("/")
