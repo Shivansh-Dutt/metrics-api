@@ -39,14 +39,14 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         )
         # Limit exceeded
         if len(timestamps) >= RATE_LIMIT:
-            retry_after = WINDOW - (now - timestamps[0])
+            retry_after = max(1, int(WINDOW - (now - timestamps[0])))
 
             return JSONResponse(
                 status_code=429,
-                headers={"Retry-After": str(int(retry_after) + 1)},
-                content={"detail": "Rate limit exceeded"},
+                headers={"Retry-After": str(retry_after)},
+                content={"detail": "Too Many Requests"},
             )
-
+            
         timestamps.append(now)
 
         return await call_next(request)
