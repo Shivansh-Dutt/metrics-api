@@ -23,7 +23,7 @@ app.add_middleware(
     #     "https://dash-b9qyop.example.com",
     #     "https://exam.sanand.workers.dev",
     # ],
-    allowed_origins="*",
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
