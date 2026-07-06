@@ -13,7 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://dash-b9qyop.example.com"
-        "https://exam.sanand.workers.dev/tds-2026-05-ga2",    
+        "https://exam.sanand.workers.dev",    
     ],
     allow_credentials=False,
     allow_methods=["*"],
