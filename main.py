@@ -6,6 +6,7 @@ from middleware.metrics import MetricsMiddleware
 from routes.stats import router as stats_router
 from routes.verify import router as verify_router
 from routes.config import router as config_router
+from routes.analytics import router as analytics_router
 
 app = FastAPI()
 
@@ -25,7 +26,7 @@ app.add_middleware(MetricsMiddleware)
 app.include_router(stats_router)
 app.include_router(verify_router)
 app.include_router(config_router)
-
+app.include_router(analytics_router)
 
 @app.get("/")
 def home():
